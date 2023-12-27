@@ -11,11 +11,12 @@
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="MimeKit" Version="4.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="VRChat.API" Version="1.15.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="TECDataClasses">
-      <HintPath>..\..\TECDataClasses\TECDataClasses\bin\Release\net6.0\TECDataClasses.dll</HintPath>
+      <HintPath>..\..\DataClasses\TECDataClasses\bin\Release\net6.0\TECDataClasses.dll</HintPath>
     </Reference>
     <Reference Include="TECEncryption">
       <HintPath>..\..\TECEncryption\TECEncryption\bin\Debug\TECEncryption.dll</HintPath>

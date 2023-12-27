@@ -1,7 +1,13 @@
-﻿@{
-    TECDataClasses.EventInfo? event_ = TECSite.Controllers.EventsController.@event;
-    TECDataClasses.EventInfo[] events = TECSite.Controllers.EventsController.events;
-    string status = TECSite.Controllers.EventsController.statusString;
+﻿@using System.Text.RegularExpressions;
+@using TECDataClasses;
+@using TECSite.Controllers;
+@using VRChat.API.Api;
+@using VRChat.API.Client;
+@using VRChat.API.Model;
+@{
+    EventInfo? event_ = EventsController.@event;
+    EventInfo[] events = EventsController.events;
+    string status = EventsController.statusString;
     ViewData["Title"] = event_ != null ? event_.EventName : "Events";
 }
 
@@ -88,24 +94,72 @@
     {
         // show event
         <h1 class="display-4">@event_.EventName</h1>
-        if (event_.EventLink != null && event_.EventLink != "")
+        if (event_.EventLink != null && event_.EventLink != "" && !event_.EventLink.Contains("vrchat.com"))
         {
             <a href="@event_.EventLink" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join now!</button></a>
         }
 
         <a href="@Program.domain/Events/Joining"><button class="link-button-class" id="link-button" onclick="ButtonWait()">How to join an event.</button></a>
 
-        System.Text.RegularExpressions.Regex linkMatch = new System.Text.RegularExpressions.Regex(@"\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+)\)");
+        Regex linkMatch = new Regex(@"\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+)\)");
         string description = event_.EventDescription;
-        System.Text.RegularExpressions.MatchCollection matches = linkMatch.Matches(description);
-        foreach (System.Text.RegularExpressions.Match match in matches)
+        MatchCollection matches = linkMatch.Matches(description);
+
+        foreach (Match match in matches)
         {
             description = description.Replace(match.Value, $"<a href=\"{match.Groups[2].Value}\" target=\"_blank\">{match.Groups[1].Value}</a>");
         }
+
         string[] lines = description.Split("\n");
         foreach (string line in lines)
         {
             <p>@Html.Raw(line)</p>
+        }
+
+        if (event_.EventLink.Contains("vrchat.com"))
+        {
+            Match instanceID = new Regex(@"(?<=https:\/\/vrchat\.com\/home\/launch\?worldId=)[\w\d./\-]*").Match(event_.EventLink);
+            string inst1 = $"https://vrchat.com/home/launch?worldId={instanceID.Value}&instanceId=TEC1~group(grp_68436afe-3d3a-4455-b88c-c8fa6924e4e0)~groupAccessType(members)~region(us)";
+            string inst2 = $"https://vrchat.com/home/launch?worldId={instanceID.Value}&instanceId=TEC2~group(grp_68436afe-3d3a-4455-b88c-c8fa6924e4e0)~groupAccessType(members)~region(us)";
+            string inst3 = $"https://vrchat.com/home/launch?worldId={instanceID.Value}&instanceId=TEC3~group(grp_68436afe-3d3a-4455-b88c-c8fa6924e4e0)~groupAccessType(members)~region(us)";
+
+            //use vrc api to get user count for each instance
+            Configuration config = new();
+            config.BasePath = "https://api.vrchat.cloud/api/1";
+            config.AddApiKey("auth", "JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26");
+
+            var apiInstance = new InstancesApi(config);
+
+            var worldId = instanceID.Value;
+            var instanceId1 = "TEC1";
+            var instanceId2 = "TEC2";
+            var instanceId3 = "TEC3";
+
+            int instCount1 = 0;
+            int instCount2 = 0;
+            int instCount3 = 0;
+
+            try
+            {
+                // Get Instance
+                Instance result1 = apiInstance.GetInstance(worldId, instanceId1);
+                Instance result2 = apiInstance.GetInstance(worldId, instanceId2);
+                Instance result3 = apiInstance.GetInstance(worldId, instanceId3);
+
+                instCount1 = result1.NUsers;
+                instCount2 = result2.NUsers;
+                instCount3 = result3.NUsers;
+            }
+            catch (ApiException e)
+            {
+                Console.WriteLine("Exception when calling InstancesApi.GetInstance: " + e.Message);
+                Console.WriteLine("Status Code: " + e.ErrorCode);
+                Console.WriteLine(e.StackTrace);
+            }
+
+            <p>Instance 1: @instCount1 Furs <a href="@inst1" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join</button></a></p>
+            <p>Instance 2: @instCount2 Furs <a href="@inst2" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join</button></a></p>
+            <p>Instance 3: @instCount3 Furs <a href="@inst3" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join</button></a></p>
         }
     }
 
