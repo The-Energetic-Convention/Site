@@ -1,0 +1,191 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 7px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+a {
+    color: rgb(255, 210, 8)
+}
+
+    a:hover {
+        color: rgb(220, 180, 0)
+    }
+
+input[type=text], input[type=password], textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #49429c;
+    background: #49429c;
+    box-sizing: border-box;
+    color: white;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+body {
+    margin-bottom: 30px;
+    background-image: url("/tec-logo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 25%;
+    background-color: rgba(33, 37, 41, 1);
+    opacity: 1;
+    width: 99%;
+    height: 90%;
+}
+
+footer {
+    position: page;
+    text-align: center;
+}
+
+.container {
+    background-color: rgb(15, 15, 15);
+    opacity: 0.95;
+}
+
+.container-main{
+    background-color: rgb(15, 15, 15);
+    opacity: 0.95;
+}
+
+.RW {
+    opacity: 0.1;
+}
+
+.link-button-class, input[type=submit] {
+    background: #252159;
+    border: 1vmin Solid #252159;
+    border-radius: 10%;
+    color: white;
+}
+
+    .link-button-class:hover, input[type=submit]:hover {
+        background-color: #201654;
+        border-color: #201654;
+    }
+
+#home-links:hover > a > .link-button-class {
+    opacity: 0.3;
+}
+
+    #home-links:hover > a > .link-button-class:hover {
+        opacity: 1;
+    }
+
+
+#bubble-wrapper {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bubble {
+    height: max(100px, 10vw);
+    width: max(100px, 10vw);
+    background-color: rgb(255, 210, 8);
+    border-radius: 100%;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    animation: wave 2s ease-in-out infinite;
+}
+
+.ripple {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    position: fixed;
+    border-radius: 50%;
+    border: 1px solid rgb(255, 210, 8);
+}
+
+@keyframes ripple-effect {
+    to {
+        transform: scale(5);
+        opacity: 0.01;
+    }
+}
+
+.lds-ripple {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+    .lds-ripple div {
+        position: absolute;
+        border: 4px solid #fff;
+        opacity: 1;
+        border-radius: 50%;
+        animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+
+        .lds-ripple div:nth-child(2) {
+            animation-delay: -0.5s;
+        }
+
+@keyframes lds-ripple {
+    0% {
+        top: 50px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    4.9% {
+        top: 50px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    5% {
+        top: 50px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+
+    100% {
+        top: 14px;
+        left: 0px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
+    }
+}
+
+
+@keyframes wave {
+    from, to {
+        transform: translate(-50%, 0%);
+    }
+
+    50% {
+        transform: translate(-50%, -20%);
+    }
+}

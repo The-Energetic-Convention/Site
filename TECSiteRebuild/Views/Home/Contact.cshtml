@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+<div class="text-center">
+    <h1 class="display-4">Where to contact us:</h1>
+    <div class="container">
+        <p>Using this form:</p>
+        <form asp-controller="Home" asp-action="Contact" method="post">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="usermessage" placeholder="Send us a message!" style="height:200px" required></textarea>
+
+            <input type="submit" value="Send!">
+
+        </form>
+    </div>
+    <p>sending us an email at: staff@thenergeticon.com or unifox@thenergeticon.com</p>
+    <p>or message us on discord @@tecstaff</p>
+</div>

@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    
+}
+
+<div class="text-center">
+    <h3 style="color: red">@TECSite.Controllers.UsersController.rResponse</h3>
+    <div class="container">
+        <h3>Log In</h3>
+        <form asp-controller="Users" asp-action="Login" method="post">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required />
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required />
+
+            <button type="submit" class="link-button-class">Log In</button>
+
+            <label for="remember">Remember me</label>
+            <input type="checkbox" checked="checked" name="remember" />
+        </form>
+    </div>
+</div>

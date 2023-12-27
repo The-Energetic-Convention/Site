@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Me";
+    TECDataClasses.UserData? user = TECSite.Controllers.UsersController.user;
+    string? birthday = user?.birthday.ToString("dd/MM/yyyy");
+}
+
+<div class="text-center">
+    <h3 style="color: red">@TECSite.Controllers.UsersController.rResponse</h3>
+    <div class="container">
+        <h3>Me</h3>
+        @if (user != null){
+            <form asp-controller="Users" asp-action="Me" method="post">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" id="uname" placeholder="Enter Username" name="uname" value=@user.username required />
+
+                <label for="disuname"><b>Discord Username</b></label>
+                <input type="text" id="disuname" placeholder="Enter Discord Username" name="disuname" value=@user.discordUsername required />
+
+                <label for="email"><b>Email</b></label>
+                <input type="text" id="email" placeholder="Enter Email" name="email" value=@user.email required />
+
+                <p><b>Role</b></p>
+                <p>@user.role.ToString()</p>
+                <p><b>Email Confirmed</b></p>
+                <p>@user.emailConfirmed</p>
+
+                <label for="pronouns"><b>Pronouns</b></label>
+                <input type="text" id="pronouns" placeholder="Enter your preferred pronouns" name="pronouns" value=@user.pronouns required />
+
+                <label for="birthdaystr"><b>Birthday</b></label>
+                <input type="text" id="birthdaystr" placeholder="Enter birthday as dd/mm/yyyy" name="birthdaystr" value=@birthday required />
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" id="psw" placeholder="Enter Password" name="psw" required />
+
+                <input type="submit" class="link-button-class" value="Update">
+
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </form>
+        }
+    </div>
+</div>

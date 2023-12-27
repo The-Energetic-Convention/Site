@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    
+}
+
+<div class="text-center">
+    <h3 style="color: red">@TECSite.Controllers.UsersController.rResponse</h3>
+    <div class="container">
+        <h3>Register</h3>
+        <form asp-controller="Users" asp-action="Register" method="post">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" id="uname" placeholder="Enter Username" name="uname" required />
+
+            <label for="disuname"><b>Discord Username</b></label>
+            <input type="text" id="disuname" placeholder="Enter Discord Username" name="disuname" required />
+
+            <label for="email"><b>Email</b></label>
+            <input type="text" id="email" placeholder="Enter Email" name="email" required />
+
+            <label for="pronouns"><b>Pronouns</b></label>
+            <input type="text" id="pronouns" placeholder="Enter your preferred pronouns" name="pronouns" required />
+
+            <label for="birthdaystr"><b>Birthday</b></label>
+            <input type="text" id="birthdaystr" placeholder="Enter birthday as dd/mm/yyyy" name="birthdaystr" required />
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" id="psw" placeholder="Enter Password" name="psw" required />
+
+            <label for="confpsw"><b>Confirm Password</b></label>
+            <input type="password" id="confpsw" placeholder="Confirm Password" name="confpsw" required />
+
+            <p>By registering you agree to our <a href="@Program.domain/Home/Privacy">Privacy Policy</a> and <a href="@Program.domain/Home/Terms">Terms and Conditions</a></p>
+            <input type="submit" class="link-button-class" value="Register!">
+            <p>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </p>
+        </form>
+    </div>
+</div>

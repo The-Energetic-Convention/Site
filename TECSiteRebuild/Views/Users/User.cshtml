@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Username";
+    TECDataClasses.UserData user = TECSite.Controllers.UsersController.user!;
+}
+
+<div class="text-center">
+    <h1 class="display-4">@user.username</h1>
+    <p><b>Role: </b>@user.role.ToString()</p>
+    <p><b>Pronouns: </b>@user.pronouns</p>
+    <p><b>User ID: </b>@user.userID</p>
+</div>

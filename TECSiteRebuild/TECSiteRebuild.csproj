@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="MimeKit" Version="4.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TECDataClasses">
+      <HintPath>..\..\TECDataClasses\TECDataClasses\bin\Release\net6.0\TECDataClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="TECEncryption">
+      <HintPath>..\..\TECEncryption\TECEncryption\bin\Debug\TECEncryption.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Terms\" />
+    <Folder Include="wwwroot\Privacy\" />
+  </ItemGroup>
+
+</Project>

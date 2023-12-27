@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Current Event";
+    TECDataClasses.EventInfo[] currentEvents = TECSite.Controllers.EventsController.currentEvents;
+    string status = TECSite.Controllers.EventsController.statusString;
+}
+
+<div class="text-center">
+    <h1 class="display-4"> Current Event </h1>
+
+    @if (currentEvents == null)
+    {
+        // show something based off the status
+        switch (status)
+        {
+            case "BEFORE_CON": // before con page
+                <p id="before">The convention has not started yet... check back here when it has!</p>
+                break;
+            case "DAY_OVER": // end of day one page
+                <p id="dayend">The day is now over</p>
+                break;
+            case "AFTER_CON": // after the con page
+                <p id="over">The convention is now closed, thank you for coming! </p>
+                break;
+            default: // what happened...
+                Console.WriteLine($"A{status}A");
+                <p>Improper status: @status</p>
+                break;
+        }
+    }
+    else if (currentEvents != null)
+    {
+        // show events
+        foreach (TECDataClasses.EventInfo event_ in currentEvents)
+        {
+            <p id="@event_.EventNumber"><a href="@Program.domain/Events/Event/@event_.EventNumber"><button class="link-button-class" id="link-button" onclick="ButtonWait()">@event_.EventName</button></a>@{
+                System.Text.RegularExpressions.Regex linkMatch = new System.Text.RegularExpressions.Regex(@"\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+)\)");
+        string description = event_.EventDescription;
+        System.Text.RegularExpressions.MatchCollection matches = linkMatch.Matches(description);
+        foreach (System.Text.RegularExpressions.Match match in matches)
+        {
+                        description = description.Replace(match.Value, $"<a href=\"{match.Groups[2].Value}\" target=\"_blank\">{match.Groups[1].Value}</a>");
+        }
+        string[] lines = description.Split("\n");
+        foreach (string line in lines)
+        {
+            <p>@Html.Raw(line)</p>
+        }}</p>
+        <p></p>
+        }
+    }
+</div>

@@ -1,0 +1,114 @@
+﻿@{
+    TECDataClasses.EventInfo? event_ = TECSite.Controllers.EventsController.@event;
+    TECDataClasses.EventInfo[] events = TECSite.Controllers.EventsController.events;
+    string status = TECSite.Controllers.EventsController.statusString;
+    ViewData["Title"] = event_ != null ? event_.EventName : "Events";
+}
+
+<div class="text-center">
+
+    @if (event_ == null)
+    {
+        <h1 class="display-4">Events</h1>
+        // show event list
+
+        <style type="text/css">
+            .container {
+                opacity: 1;
+            }
+
+            html, body {
+                min-height: 100vh;
+            }
+
+            body {
+                height: 100vh;
+            }
+        </style>
+
+        <div style="display:flex">
+            <a style="margin: 0 auto" href="~/Schedule/Schedule.png" download="TEC_Schedule">Download</a>
+        </div>
+        <div style="opacity:1; max-height:90vh; overflow:auto; display: flex; flex-direction: row; flex-wrap:wrap;">
+            <h3 style="margin-right:8vw">Friday, April 12:</h3>
+            <div style="margin: 0 auto; width:77.25%; position:relative">
+                <a href="@Program.domain/Events/Event/0"> <button style="opacity:0; position:absolute; left:11.7%; top:7.5%; width:14.8%; height:47%"></button></a>
+                <a href="@Program.domain/Events/Event/1"> <button style="opacity:0; position:absolute; left:26.4%; top:7.5%; width:14.8%; height:24%"></button></a>
+                <a href="@Program.domain/Events/Event/2"> <button style="opacity:0; position:absolute; left:41%;   top:7.5%; width:14.8%; height:24%"></button></a>
+                <a href="@Program.domain/Events/Event/3"> <button style="opacity:0; position:absolute; left:55.7%; top:54%;  width:14.8%; height:24%"></button></a>
+                <a href="@Program.domain/Events/Event/4"> <button style="opacity:0; position:absolute; left:70.4%; top:7.5%; width:14.8%; height:24%"></button></a>
+                <a href="@Program.domain/Events/Event/5"> <button style="opacity:0; position:absolute; left:85.2%; top:7.5%; width:14.8%; height:24%"></button></a>
+                <img src="~/Schedule/Day1.png" width="100%" style="margin: 0 auto">
+            </div>
+            <div style="margin: 0 auto; width:22.75%">
+                <img src="~/Schedule/Legend.png" width="100%" style="margin: 0 auto">
+            </div>
+            <h3 style="margin-right:8vw; margin-top:15px">Saturday, April 13:</h3>
+            <div style="margin: 0 auto; width:100%; position:relative">
+                <a href="@Program.domain/Events/Event/6 "> <button style="opacity:0; position:absolute; left:6.3%;  top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/7 "> <button style="opacity:0; position:absolute; left:14.1%; top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/8 "> <button style="opacity:0; position:absolute; left:21.9%; top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/9 "> <button style="opacity:0; position:absolute; left:29.6%; top:54%; width:4%;   height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/10"> <button style="opacity:0; position:absolute; left:33.5%; top:31%; width:4%;   height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/11"> <button style="opacity:0; position:absolute; left:37.4%; top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/12"> <button style="opacity:0; position:absolute; left:45.2%; top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/13"> <button style="opacity:0; position:absolute; left:53.1%; top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/14"> <button style="opacity:0; position:absolute; left:60.8%; top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/15"> <button style="opacity:0; position:absolute; left:68.6%; top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/16"> <button style="opacity:0; position:absolute; left:76.4%;top:31.3%;width:7.84%;height:23%"></button>
+                                                           <button style="opacity:0; position:absolute; left:76.4%;top:76.4%;width:7.84%;height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/17"> <button style="opacity:0; position:absolute; left:84.2%; top:9%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/18"> <button style="opacity:0; position:absolute; left:92%;top:31.3%;width:7.84%;height:45.4%"></button></a>
+                <img src="~/Schedule/Day2.png" width="100%" style="margin: 0 auto">
+            </div>
+            <h3 style="margin-right:8vw; margin-top:15px">Sunday, April 14:</h3>
+            <div style="margin: 0 auto; width:100%; position:relative">
+                <a href="@Program.domain/Events/Event/19"> <button style="opacity:0; position:absolute; left:6.3%;  top:8%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/20"> <button style="opacity:0; position:absolute; left:14.1%; top:8%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/21"> <button style="opacity:0; position:absolute; left:21.8%;top:76.4%;width:7.84%;height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/22"> <button style="opacity:0; position:absolute; left:29.6%;top:76.4%;width:7.84%;height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/23"> <button style="opacity:0; position:absolute; left:37.4%; top:8%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/24"> <button style="opacity:0; position:absolute; left:45.2%; top:8%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/25"> <button style="opacity:0; position:absolute; left:53.1%; top:8%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/26"> <button style="opacity:0; position:absolute; left:60.8%; top:8%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/27"> <button style="opacity:0; position:absolute; left:68.6%; top:8%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/28"> <button style="opacity:0; position:absolute; left:76.4%;top:53.7%;width:7.84%;height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/29"> <button style="opacity:0; position:absolute; left:84.2%; top:8%; width:7.84%; height:23%"></button></a>
+                <a href="@Program.domain/Events/Event/30"> <button style="opacity:0; position:absolute; left:92%;   top:8%; width:7.84%; height:46%"></button></a>
+                <img src="~/Schedule/Day3.png" width="100%" style="margin: 0 auto">
+            </div>
+        </div>
+
+        /* foreach (TECDataClasses.EventInfo toAdd in events)
+        {
+            <p id="@toAdd.EventNumber">@toAdd.EventDate.ToString("dddd, MMM dd: h:mm tt ") <a href="@Program.domain/Events/Event/@toAdd.EventNumber"><button class="link-button-class" id="link-button" onclick="ButtonWait()">@toAdd.EventName</button></a></p>
+        } */
+    }
+    else if (event_ != null)
+    {
+        // show event
+        <h1 class="display-4">@event_.EventName</h1>
+        if (event_.EventLink != null && event_.EventLink != "")
+        {
+            <a href="@event_.EventLink" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join now!</button></a>
+        }
+
+        <a href="@Program.domain/Events/Joining"><button class="link-button-class" id="link-button" onclick="ButtonWait()">How to join an event.</button></a>
+
+        System.Text.RegularExpressions.Regex linkMatch = new System.Text.RegularExpressions.Regex(@"\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+)\)");
+        string description = event_.EventDescription;
+        System.Text.RegularExpressions.MatchCollection matches = linkMatch.Matches(description);
+        foreach (System.Text.RegularExpressions.Match match in matches)
+        {
+            description = description.Replace(match.Value, $"<a href=\"{match.Groups[2].Value}\" target=\"_blank\">{match.Groups[1].Value}</a>");
+        }
+        string[] lines = description.Split("\n");
+        foreach (string line in lines)
+        {
+            <p>@Html.Raw(line)</p>
+        }
+    }
+
+    <iframe> </iframe>
+
+</div>

@@ -1,0 +1,23 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using System.Web;
+
+<ul class="navbar-nav">
+    @if (!HttpContextAccessor.HttpContext.Request.Cookies.ContainsKey("loggedIn"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" href="@Program.domain/Users/Register"><i class="fa-solid fa-user-plus"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="@Program.domain/Users/Login"><i class="fa-solid fa-right-to-bracket"></i></a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" style="color: rgb(255, 210, 8)" href="@Program.domain/Users/Me"><i class="fa-solid fa-user"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" style="color: red" href="@Program.domain/Users/Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+        </li>
+    }
+</ul>

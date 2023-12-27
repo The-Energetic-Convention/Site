@@ -1,0 +1,62 @@
+{
+  "name": "The Energetic Convention",
+  "short_name": "TEC",
+  "description": "The official site for The Energetic Convention",
+  "display": "standalone",
+  "start_url": "https://thenergeticon.com",
+  "id": "TECSite",
+  "theme_color": "#19153B",
+  "background_color": "#15191D",
+  "shortcuts": [
+    {
+      "name": "Events List",
+      "short_name": "Events",
+      "description": "View the events list",
+      "url": "/Events",
+      "icons": [
+        {
+          "src": "/tec-logo-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Home Page",
+      "short_name": "Home",
+      "description": "Got to the home page",
+      "url": "/Home",
+      "icons": [
+        {
+          "src": "/tec-logo-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "type": "image/png",
+      "sizes": "1920x989",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-tall.png",
+      "type": "image/png",
+      "sizes": "560x980",
+      "form_factor": "narrow"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/tec-logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/tec-logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
