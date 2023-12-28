@@ -1,4 +1,7 @@
-﻿@using System.Text.RegularExpressions;
+﻿@using System.Text;
+@using System.Text.RegularExpressions;
+@using System.Net;
+@using Newtonsoft.Json;
 @using TECDataClasses;
 @using TECSite.Controllers;
 @using VRChat.API.Api;
@@ -119,47 +122,44 @@
         if (event_.EventLink.Contains("vrchat.com"))
         {
             Match instanceID = new Regex(@"(?<=https:\/\/vrchat\.com\/home\/launch\?worldId=)[\w\d./\-]*").Match(event_.EventLink);
-            string inst1 = $"https://vrchat.com/home/launch?worldId={instanceID.Value}&instanceId=TEC1~group(grp_68436afe-3d3a-4455-b88c-c8fa6924e4e0)~groupAccessType(members)~region(us)";
-            string inst2 = $"https://vrchat.com/home/launch?worldId={instanceID.Value}&instanceId=TEC2~group(grp_68436afe-3d3a-4455-b88c-c8fa6924e4e0)~groupAccessType(members)~region(us)";
-            string inst3 = $"https://vrchat.com/home/launch?worldId={instanceID.Value}&instanceId=TEC3~group(grp_68436afe-3d3a-4455-b88c-c8fa6924e4e0)~groupAccessType(members)~region(us)";
+            var worldID = instanceID.Value;
 
-            //use vrc api to get user count for each instance
-            Configuration config = new();
-            config.BasePath = "https://api.vrchat.cloud/api/1";
-            config.AddApiKey("auth", "JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26");
-
-            var apiInstance = new InstancesApi(config);
-
-            var worldId = instanceID.Value;
-            var instanceId1 = "TEC1";
-            var instanceId2 = "TEC2";
-            var instanceId3 = "TEC3";
-
-            int instCount1 = 0;
-            int instCount2 = 0;
-            int instCount3 = 0;
-
-            try
+            for (int i = 0; i < 3; ++i)
             {
-                // Get Instance
-                Instance result1 = apiInstance.GetInstance(worldId, instanceId1);
-                Instance result2 = apiInstance.GetInstance(worldId, instanceId2);
-                Instance result3 = apiInstance.GetInstance(worldId, instanceId3);
+                var instID = $"TEC{i}";
+                string inst = $"https://vrchat.com/home/launch?worldId={worldID}&instanceId={instID}~group(grp_68436afe-3d3a-4455-b88c-c8fa6924e4e0)~groupAccessType(members)~region(us)";
+                int instCount = 0;
+                HttpWebRequest request = WebRequest.CreateHttp($"https://api.vrchat.cloud/api/1/instances/wrld_b155ff30-0bbf-486c-afc5-e7a05145387b:TEC1");
+                request.Method = "GET";
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+                request.CookieContainer = new();
+                request.CookieContainer.Add(new Cookie("auth", "authcookie_e9f9a780-ea25-4c4b-9af0-4cc4c639c5ed", "/", "api.vrchat.cloud"));
+                request.KeepAlive = true;
 
-                instCount1 = result1.NUsers;
-                instCount2 = result2.NUsers;
-                instCount3 = result3.NUsers;
-            }
-            catch (ApiException e)
-            {
-                Console.WriteLine("Exception when calling InstancesApi.GetInstance: " + e.Message);
-                Console.WriteLine("Status Code: " + e.ErrorCode);
-                Console.WriteLine(e.StackTrace);
-            }
+                try
+                {
+                    HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
 
-            <p>Instance 1: @instCount1 Furs <a href="@inst1" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join</button></a></p>
-            <p>Instance 2: @instCount2 Furs <a href="@inst2" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join</button></a></p>
-            <p>Instance 3: @instCount3 Furs <a href="@inst3" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join</button></a></p>
+                    var receiveStream = resp.GetResponseStream();
+                    var readStream = new StreamReader(receiveStream, Encoding.UTF8);
+                    var json = readStream.ReadToEnd();
+
+                    Instance instance = JsonConvert.DeserializeObject<Instance>(json);
+
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Exception when calling InstancesApi.GetInstance: " + e.Message);
+                    Console.WriteLine("Status Code: " + e.StatusCode);
+                    Console.WriteLine(e.StackTrace);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+                <p>Instance @i: @instCount Furs <a href="@inst" target="_blank"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Join</button></a></p>
+            }
         }
     }
 
