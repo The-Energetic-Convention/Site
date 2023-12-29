@@ -157,9 +157,13 @@ namespace TECSite.Controllers
             ss.WriteString("E");
             Program.CheckResponse(ss);
 
-            ss.WriteString(input.ToString());
+            string @event = input.ToString();
+            Console.WriteLine($"Sending {@event}");
+            ss.WriteString(@event);
 
-            EventInfo toReturn = JsonConvert.DeserializeObject<EventInfo>(ss.ReadString())!;
+            @event = ss.ReadString();
+            Console.WriteLine($"Recieved {@event}");
+            EventInfo toReturn = JsonConvert.DeserializeObject<EventInfo>(@event)!;
             if (ss.ReadString() != "SUCCESS") { throw new Exception("Server Error"); }
             pipeClient.Close();
 
