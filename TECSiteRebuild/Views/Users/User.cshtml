@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Username";
-    TECDataClasses.UserData user = TECSite.Controllers.UsersController.user!;
+    TECDataClasses.UserData user = (TECDataClasses.UserData)ViewData["user"]!;
 }
 
 <div class="text-center">

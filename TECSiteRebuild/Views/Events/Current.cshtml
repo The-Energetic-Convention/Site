@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Current Event";
-    TECDataClasses.EventInfo[] currentEvents = TECSite.Controllers.EventsController.currentEvents;
-    string status = TECSite.Controllers.EventsController.statusString;
+    TECDataClasses.EventInfo[] currentEvents = (TECDataClasses.EventInfo[])ViewData["currentevents"];
+    string status = (string)ViewData["status"];
 }
 
 <div class="text-center">

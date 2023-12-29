@@ -1,11 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Me";
-    TECDataClasses.UserData? user = TECSite.Controllers.UsersController.user;
+    TECDataClasses.UserData? user = (TECDataClasses.UserData?)ViewData["user"];
     string? birthday = user?.birthday.ToString("dd/MM/yyyy");
 }
 
 <div class="text-center">
-    <h3 style="color: red">@TECSite.Controllers.UsersController.rResponse</h3>
+    <h3 style="color: red">@ViewData["response"]</h3>
     <div class="container">
         <h3>Me</h3>
         @if (user != null){

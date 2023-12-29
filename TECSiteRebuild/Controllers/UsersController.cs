@@ -15,8 +15,8 @@ namespace TECSite.Controllers
     public class UsersController : Controller
     {
         private readonly ILogger<UsersController> _logger;
-        public static string rResponse = "";
-        public static UserData? user = null;
+        public string rResponse = "";
+        public UserData? user = null;
 
         public UsersController(ILogger<UsersController> logger)
         {
@@ -70,6 +70,7 @@ namespace TECSite.Controllers
                         if (user == null || (Request.Cookies.ContainsKey("loggedIn") && user.username == Encryption.Decrypt(Request.Cookies["loggedIn"]!, JsonConvert.DeserializeObject<byte[]>(Program.authKey)))) 
                             { return Redirect($"{Program.domain}/Users/Me"); }
 
+                        ViewData.Add("user", user);
                         return View(); 
                     }
                     catch (Exception e) // find user by username
@@ -96,6 +97,7 @@ namespace TECSite.Controllers
                         if (user == null || (Request.Cookies.ContainsKey("loggedIn") && user.username == Encryption.Decrypt(Request.Cookies["loggedIn"]!, JsonConvert.DeserializeObject<byte[]>(Program.authKey))))
                             { return Redirect($"{Program.domain}/Users/Me"); }
 
+                        ViewData.Add("user", user);
                         return View(); 
                     }
             }
@@ -143,13 +145,21 @@ namespace TECSite.Controllers
 
             if (uname == null)
             {
+                ViewData.Add("user", user);
+                ViewData.Add("response", rResponse);
                 return View();
             }
 
 
             string encryptedpsw = Encryption.Encrypt(psw, JsonConvert.DeserializeObject<byte[]>(Program.authKey));
             DateTime birthday = DateTime.ParseExact(birthdaystr!, "dd/MM/yyyy", null);
-            if (user.encryptedPassword != encryptedpsw) { rResponse = "Incorrect password"; return View(); }
+            if (user.encryptedPassword != encryptedpsw) 
+            { 
+                rResponse = "Incorrect password";
+                ViewData.Add("user", user);
+                ViewData.Add("response", rResponse);
+                return View(); 
+            }
 
             if (uname != olduname)
             {
@@ -168,7 +178,13 @@ namespace TECSite.Controllers
                 if (ss.ReadString() != "SUCCESS") { }
                 pipeClient.Close();
 
-                if (userexists != null) { rResponse = "Username taken"; return View(); }
+                if (userexists != null) 
+                { 
+                    rResponse = "Username taken";
+                    ViewData.Add("user", user);
+                    ViewData.Add("response", rResponse);
+                    return View(); 
+                }
             }
 
             UserData newuser = new(
@@ -194,7 +210,13 @@ namespace TECSite.Controllers
             Program.CheckResponse(ss);
 
             ss.WriteString(JsonConvert.SerializeObject(newuser));
-            if (ss.ReadString() != "SUCCESS") { rResponse = "Error updating account"; return View(); }
+            if (ss.ReadString() != "SUCCESS") 
+            { 
+                rResponse = "Error updating account";
+                ViewData.Add("user", user);
+                ViewData.Add("response", rResponse);
+                return View(); 
+            }
 
             pipeClient.Close();
 
@@ -245,6 +267,7 @@ namespace TECSite.Controllers
                         return new BadRequestResult();
                     }
 
+                    ViewData.Add("response", rResponse);
                     return View(); 
                 }
                 pipeClient.Close();
@@ -258,6 +281,7 @@ namespace TECSite.Controllers
                         return new BadRequestResult();
                     }
 
+                    ViewData.Add("response", rResponse);
                     return View(); 
                 }
 
@@ -277,6 +301,7 @@ namespace TECSite.Controllers
                 return Redirect($"{Program.domain}/Home");
             }
 
+            ViewData.Add("response", rResponse);
             return View();
         }
         public IActionResult Logout(string? confirm = null)
@@ -314,8 +339,8 @@ namespace TECSite.Controllers
             // serve the registration page, or register the user
             Console.WriteLine("Register");
 
-            if (uname == null) { return View(); }
-            else if (psw != confpsw) { rResponse = "Passwords do not match"; return View(); }
+            if (uname == null) { ViewData.Add("response", rResponse); return View(); }
+            else if (psw != confpsw) { rResponse = "Passwords do not match"; ViewData.Add("response", rResponse); return View(); }
             else
             {
                 string encryptedPsw = Encryption.Encrypt(psw, JsonConvert.DeserializeObject<byte[]>(Program.authKey));
@@ -338,7 +363,7 @@ namespace TECSite.Controllers
                 pipeClient.Close();
 
                 Console.WriteLine(JsonConvert.SerializeObject(userexists));
-                if (userexists != null) { rResponse = "Username taken"; return View(); }
+                if (userexists != null) { rResponse = "Username taken"; ViewData.Add("response", rResponse); return View(); }
 
                 // get accounts
                 (ss, pipeClient) = Program.ConnectClient();
@@ -353,7 +378,7 @@ namespace TECSite.Controllers
 
                 ss.WriteString("ALL");
                 UserData[] users = JsonConvert.DeserializeObject<UserData[]>(ss.ReadString())!;
-                if (ss.ReadString() != "SUCCESS") { rResponse = "Server Error"; return View(); }
+                if (ss.ReadString() != "SUCCESS") { rResponse = "Server Error"; ViewData.Add("response", rResponse); return View(); }
                 pipeClient.Close();
 
                 UserData user = new(
@@ -379,7 +404,7 @@ namespace TECSite.Controllers
                 Program.CheckResponse(ss);
 
                 ss.WriteString(JsonConvert.SerializeObject(user));
-                if (ss.ReadString() != "SUCCESS") { rResponse = "Error creating account"; return View(); }
+                if (ss.ReadString() != "SUCCESS") { rResponse = "Error creating account"; ViewData.Add("response", rResponse); return View(); }
 
                 pipeClient.Close();
 
@@ -474,7 +499,7 @@ namespace TECSite.Controllers
                         Program.CheckResponse(ss);
 
                         ss.WriteString(JsonConvert.SerializeObject(user));
-                        if (ss.ReadString() != "SUCCESS") { rResponse = "Error updating account"; return View(); }
+                        if (ss.ReadString() != "SUCCESS") { rResponse = "Error updating account"; ViewData.Add("response", rResponse); return View(); }
 
                         pipeClient.Close();
 
@@ -486,11 +511,13 @@ namespace TECSite.Controllers
                     }
 
                     rResponse = "Incorrect code!";
+                    ViewData.Add("response", rResponse);
                     return View();
                 }
                 rResponse = "Email does not needing to be confirmed";
                 return Redirect($"{Program.domain}/Home");
             }
+            ViewData.Add("response", rResponse);
             return View();
         }
 

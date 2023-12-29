@@ -45,6 +45,9 @@ namespace TECSite.Controllers
                     }
 
                     // Show the event list
+                    ViewData.Add("events", events);
+                    ViewData.Add("event", @event);
+                    ViewData.Add("status", statusString);
                     return View();
 
                 default:
@@ -62,6 +65,9 @@ namespace TECSite.Controllers
 
                         if (@event == null) { RedirectToAction("Event", null); break; }
                         // Show event info
+                        ViewData.Add("events", events);
+                        ViewData.Add("event", @event);
+                        ViewData.Add("status", statusString);
                         return View();
                     }
                     catch { }
@@ -141,6 +147,8 @@ namespace TECSite.Controllers
                 return new ContentResult() { Content = statusString, ContentType = "text/plain", StatusCode = 200 };
             }
 
+            ViewData.Add("currentevents", currentEvents);
+            ViewData.Add("status", statusString);
             return View();
         }
 

@@ -1,7 +1,7 @@
 ﻿@{
-    TECDataClasses.EventInfo? event_ = TECSite.Controllers.EventsController.@event;
-    TECDataClasses.EventInfo[] events = TECSite.Controllers.EventsController.events;
-    string status = TECSite.Controllers.EventsController.statusString;
+    TECDataClasses.EventInfo? event_ = (TECDataClasses.EventInfo?)ViewData["event"];
+    TECDataClasses.EventInfo[] events = (TECDataClasses.EventInfo[])ViewData["events"];
+    string status = (string)ViewData["status"];
     ViewData["Title"] = event_ != null ? event_.EventName : "Events";
 }
 
