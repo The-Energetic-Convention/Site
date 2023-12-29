@@ -111,7 +111,7 @@ namespace TECSite
         {
             try
             {
-                NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "TECDatabasePipe", PipeDirection.InOut, PipeOptions.None);
+                NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "TECDatabasePipe", PipeDirection.InOut, PipeOptions.WriteThrough);
                 pipeClient.Connect();
                 var ss = new StreamString(pipeClient);
                 Console.WriteLine("Authorizing");
