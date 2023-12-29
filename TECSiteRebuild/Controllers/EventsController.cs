@@ -11,17 +11,17 @@ namespace TECSite.Controllers
     {
         private readonly ILogger<EventsController> _logger;
 
-        public static EventInfo[] events = null;
-        public static EventInfo[] currentEvents = null;
-        public static EventInfo? @event = null;
-        public static string statusString = "BEFORE_CON";
+        public EventInfo[] events = null;
+        public EventInfo[] currentEvents = null;
+        public EventInfo? @event = null;
+        public string statusString = "BEFORE_CON";
 
         public EventsController(ILogger<EventsController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Event(string? id)
+        public async Task<IActionResult> Event(string? id)
         {
             events = null;
             @event = null;
@@ -33,21 +33,20 @@ namespace TECSite.Controllers
                     Console.WriteLine($"Current Event page");
                     EventInfo[] eventslist = GetEvents();
                     // redirect to current event
-                    Redirect($"{Program.domain}/Events/Current");
+                    return Redirect($"{Program.domain}/Events/Current");
 
-                    break;
                 case null:
                     Console.WriteLine("Event List page");
                     events = GetEvents();
 
                     if (domain == "api")
                     {
-                        return new JsonResult(events);
+                        return Json(events);
                     }
 
                     // Show the event list
+                    return View();
 
-                    break;
                 default:
                     try
                     {
@@ -58,17 +57,17 @@ namespace TECSite.Controllers
                         if (domain == "api")
                         {
                             if (@event == null) { return new NotFoundResult(); }
-                            return new JsonResult(@event);
+                            return Json(@event);
                         }
 
                         if (@event == null) { RedirectToAction("Event", null); break; }
                         // Show event info
-
+                        return View();
                     }
                     catch { }
                     // No event found redirect to events list
-                    RedirectToAction("Event", null);
-                    break;
+                    return RedirectToAction("Event", null);
+
             }
             return View();
         }
