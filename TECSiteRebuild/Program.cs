@@ -14,7 +14,6 @@ namespace TECSite
 #endif
 
         public static string authKey = Environment.GetEnvironmentVariable("TECKEY") ?? "NULL";
-        public static NamedPipeClientStream pipeClient;
 
         public static DateTime mainNow = DateTime.Now;
         public static TimeSpan fiveMin = mainNow.AddMinutes(5) - mainNow;
@@ -108,20 +107,20 @@ namespace TECSite
             }
         }
 
-        public static StreamString ConnectClient()
+        public static (StreamString, NamedPipeClientStream) ConnectClient()
         {
             try
             {
-                pipeClient = new NamedPipeClientStream(".", "TECDatabasePipe", PipeDirection.InOut, PipeOptions.None);
+                NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "TECDatabasePipe", PipeDirection.InOut, PipeOptions.None);
                 pipeClient.Connect();
                 var ss = new StreamString(pipeClient);
                 Console.WriteLine("Authorizing");
                 ss.WriteString(authKey);
                 if (ss.ReadString() != authKey) { ss.WriteString("Unauthorized server!"); throw new Exception("Unauthorized server connection attemted!"); }
 
-                return ss;
+                return (ss, pipeClient);
             }
-            catch (Exception e) { Console.WriteLine(e.Message); return null; }
+            catch (Exception e) { Console.WriteLine(e.Message); return (null,null); }
         }
 
         public static void CheckResponse(StreamString ss)

@@ -40,7 +40,7 @@ namespace TECSite.Controllers
                         Console.WriteLine($"User {int.Parse(id)} page");
 
                         // get the event to remove
-                        var ss = Program.ConnectClient();
+                        var (ss, pipeClient) = Program.ConnectClient();
 
                         // tell the server we are reading
                         ss.WriteString("R");
@@ -53,7 +53,7 @@ namespace TECSite.Controllers
                         ss.WriteString($"{id}");
                         user = JsonConvert.DeserializeObject<UserData>(ss.ReadString())!;
                         if (ss.ReadString() != "SUCCESS") { throw new Exception("Server Error"); }
-                        Program.pipeClient.Close();
+                        pipeClient.Close();
 
                         string domain = Request.Host.Host.Split('.')[0];
                         if (domain == "api")
@@ -77,7 +77,7 @@ namespace TECSite.Controllers
                         Console.WriteLine($"{id} User page");
 
                         // get the event to remove
-                        var ss = Program.ConnectClient();
+                        var (ss, pipeClient) = Program.ConnectClient();
 
                         // tell the server we are reading
                         ss.WriteString("R");
@@ -90,7 +90,7 @@ namespace TECSite.Controllers
                         ss.WriteString($"USERNAME={id}");
                         user = JsonConvert.DeserializeObject<UserData>(ss.ReadString())!;
                         if (ss.ReadString() != "SUCCESS") { throw new Exception("Server Error"); }
-                        Program.pipeClient.Close();
+                        pipeClient.Close();
 
                         // No user found redirect to Me
                         if (user == null || (Request.Cookies.ContainsKey("loggedIn") && user.username == Encryption.Decrypt(Request.Cookies["loggedIn"]!, JsonConvert.DeserializeObject<byte[]>(Program.authKey))))
@@ -118,7 +118,7 @@ namespace TECSite.Controllers
 
             string olduname = Encryption.Decrypt(Request.Cookies["loggedIn"]!, JsonConvert.DeserializeObject<byte[]>(Program.authKey));
 
-            var ss = Program.ConnectClient();
+            var (ss, pipeClient) = Program.ConnectClient();
 
             // tell the server we are reading
             ss.WriteString("R");
@@ -131,7 +131,7 @@ namespace TECSite.Controllers
             ss.WriteString($"USERNAME={olduname}");
             user = JsonConvert.DeserializeObject<UserData>(ss.ReadString())!;
             if (ss.ReadString() != "SUCCESS") { rResponse = "Error getting info"; }
-            Program.pipeClient.Close();
+            pipeClient.Close();
 
             string domain = Request.Host.Host.Split('.')[0];
 
@@ -153,7 +153,7 @@ namespace TECSite.Controllers
 
             if (uname != olduname)
             {
-                ss = Program.ConnectClient();
+                (ss, pipeClient) = Program.ConnectClient();
 
                 // tell the server we are reading
                 ss.WriteString("R");
@@ -166,7 +166,7 @@ namespace TECSite.Controllers
                 ss.WriteString($"USERNAME={uname}");
                 string userexists = ss.ReadString();
                 if (ss.ReadString() != "SUCCESS") { }
-                Program.pipeClient.Close();
+                pipeClient.Close();
 
                 if (userexists != null) { rResponse = "Username taken"; return View(); }
             }
@@ -183,7 +183,7 @@ namespace TECSite.Controllers
                         user.userID);
 
             // add them to the database
-            ss = Program.ConnectClient();
+            (ss, pipeClient) = Program.ConnectClient();
 
             // tell the server we are updating
             ss.WriteString("U");
@@ -196,7 +196,7 @@ namespace TECSite.Controllers
             ss.WriteString(JsonConvert.SerializeObject(newuser));
             if (ss.ReadString() != "SUCCESS") { rResponse = "Error updating account"; return View(); }
 
-            Program.pipeClient.Close();
+            pipeClient.Close();
 
             rResponse = "Success!";
             if (uname != olduname)
@@ -224,7 +224,7 @@ namespace TECSite.Controllers
 
                 string domain = Request.Host.Host.Split('.')[0];
 
-                var ss = Program.ConnectClient();
+                var (ss, pipeClient) = Program.ConnectClient();
 
                 // tell the server we are reading
                 ss.WriteString("R");
@@ -247,7 +247,7 @@ namespace TECSite.Controllers
 
                     return View(); 
                 }
-                Program.pipeClient.Close();
+                pipeClient.Close();
 
                 if (user.encryptedPassword != encryptedpsw) 
                 { 
@@ -322,7 +322,7 @@ namespace TECSite.Controllers
                 DateTime birthday = DateTime.ParseExact(birthdaystr!, "dd/MM/yyyy", null);
 
                 // check if username taken
-                var ss = Program.ConnectClient();
+                var (ss, pipeClient) = Program.ConnectClient();
 
                 // tell the server we are reading
                 ss.WriteString("R");
@@ -335,13 +335,13 @@ namespace TECSite.Controllers
                 ss.WriteString($"USERNAME={uname}");
                 UserData? userexists = JsonConvert.DeserializeObject<UserData>(ss.ReadString());
                 if (ss.ReadString() != "SUCCESS") { }
-                Program.pipeClient.Close();
+                pipeClient.Close();
 
                 Console.WriteLine(JsonConvert.SerializeObject(userexists));
                 if (userexists != null) { rResponse = "Username taken"; return View(); }
 
                 // get accounts
-                ss = Program.ConnectClient();
+                (ss, pipeClient) = Program.ConnectClient();
 
                 // tell the server we are reading
                 ss.WriteString("R");
@@ -354,7 +354,7 @@ namespace TECSite.Controllers
                 ss.WriteString("ALL");
                 UserData[] users = JsonConvert.DeserializeObject<UserData[]>(ss.ReadString())!;
                 if (ss.ReadString() != "SUCCESS") { rResponse = "Server Error"; return View(); }
-                Program.pipeClient.Close();
+                pipeClient.Close();
 
                 UserData user = new(
                         uname,
@@ -368,7 +368,7 @@ namespace TECSite.Controllers
                         users.Length);
 
                 // add them to the database
-                ss = Program.ConnectClient();
+                (ss, pipeClient) = Program.ConnectClient();
 
                 // tell the server we are creating
                 ss.WriteString("C");
@@ -381,7 +381,7 @@ namespace TECSite.Controllers
                 ss.WriteString(JsonConvert.SerializeObject(user));
                 if (ss.ReadString() != "SUCCESS") { rResponse = "Error creating account"; return View(); }
 
-                Program.pipeClient.Close();
+                pipeClient.Close();
 
                 rResponse = "Success!";
                 CookieOptions cookieOptions = new();
@@ -429,7 +429,7 @@ namespace TECSite.Controllers
 
             string uname = Encryption.Decrypt(Request.Cookies["loggedIn"]!, JsonConvert.DeserializeObject<byte[]>(Program.authKey));
 
-            var ss = Program.ConnectClient();
+            var (ss, pipeClient) = Program.ConnectClient();
 
             // tell the server we are reading
             ss.WriteString("R");
@@ -442,7 +442,7 @@ namespace TECSite.Controllers
             ss.WriteString($"USERNAME={uname}");
             user = JsonConvert.DeserializeObject<UserData>(ss.ReadString())!;
             if (ss.ReadString() != "SUCCESS") { rResponse = "Error getting info"; }
-            Program.pipeClient.Close();
+            pipeClient.Close();
 
             if (user.emailConfirmed) { return Redirect($"{Program.domain}/Home"); }
 
@@ -463,7 +463,7 @@ namespace TECSite.Controllers
                         user.emailConfirmed = true;
 
                         // add them to the database
-                        ss = Program.ConnectClient();
+                        (ss, pipeClient) = Program.ConnectClient();
 
                         // tell the server we are updating
                         ss.WriteString("U");
@@ -476,7 +476,7 @@ namespace TECSite.Controllers
                         ss.WriteString(JsonConvert.SerializeObject(user));
                         if (ss.ReadString() != "SUCCESS") { rResponse = "Error updating account"; return View(); }
 
-                        Program.pipeClient.Close();
+                        pipeClient.Close();
 
                         emails.Remove(user.email);
 

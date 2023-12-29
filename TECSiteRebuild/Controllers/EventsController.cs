@@ -147,7 +147,7 @@ namespace TECSite.Controllers
 
         EventInfo? GetEvent(int input)
         {
-            var ss = Program.ConnectClient();
+            var (ss, pipeClient) = Program.ConnectClient();
 
             // tell the server we are reading
             ss.WriteString("R");
@@ -161,7 +161,7 @@ namespace TECSite.Controllers
 
             EventInfo toReturn = JsonConvert.DeserializeObject<EventInfo>(ss.ReadString())!;
             if (ss.ReadString() != "SUCCESS") { throw new Exception("Server Error"); }
-            Program.pipeClient.Close();
+            pipeClient.Close();
 
             if (toReturn != null) { return toReturn; }
             return null;
@@ -170,7 +170,7 @@ namespace TECSite.Controllers
         EventInfo[] GetEvents()
         {
             // get events
-            var ss = Program.ConnectClient();
+            var (ss, pipeClient) = Program.ConnectClient();
 
             // tell the server we are reading
             ss.WriteString("R");
@@ -183,7 +183,7 @@ namespace TECSite.Controllers
             ss.WriteString("ALL");
             EventInfo[] events = JsonConvert.DeserializeObject<EventInfo[]>(ss.ReadString())!;
             if (ss.ReadString() != "SUCCESS") { throw new Exception("Server Error"); }
-            Program.pipeClient.Close();
+            pipeClient.Close();
 
             return events;
         }
