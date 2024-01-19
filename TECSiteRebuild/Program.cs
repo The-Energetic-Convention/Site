@@ -43,9 +43,9 @@ namespace TECSite
                 {
                     webHostBuilder.UseKestrel()
 #if DEBUG
-                    .UseUrls("https://localhost:443", "http://localhost:80") //set the addresses to listen on from provided IP
+                    .UseUrls("https://localhost:420", "http://localhost:6969") //set the addresses to listen on from provided IP
 #else
-                    .UseUrls("https://" + myIP + ":443", "http://" + myIP + ":80") //set the addresses to listen on from provided IP
+                    .UseUrls("https://" + myIP + ":420", "http://" + myIP + ":6969") //set the addresses to listen on from provided IP
 #endif
                     .CaptureStartupErrors(true) //Capture the startup errors if something happens ig
                     //.UseIISIntegration() //IDK lol
