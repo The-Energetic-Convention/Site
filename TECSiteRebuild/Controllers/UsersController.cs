@@ -23,6 +23,7 @@ namespace TECSite.Controllers
             _logger = logger;
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public new IActionResult User(string? id)
         {
             string? authHeader = Request.Headers.Authorization;
@@ -103,6 +104,7 @@ namespace TECSite.Controllers
             }
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Me(
             string? uname = null,
             string? disuname = null,
@@ -233,12 +235,14 @@ namespace TECSite.Controllers
 
             return Redirect($"{Program.domain}/Home");
         }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Login(string? uname = null, string? psw = null, bool remember = true)
         {
             user = null;
             rResponse = "";
             // Serve login page, or log the user in
-            Console.WriteLine($"{uname??""} Login");
+            Console.WriteLine($"\n{uname??""} Login\n");
 
             if (uname != null && psw != null)
             {
@@ -272,6 +276,8 @@ namespace TECSite.Controllers
                 }
                 pipeClient.Close();
 
+                Console.WriteLine($"\n{JsonConvert.SerializeObject(user, Formatting.Indented)}\n");
+
                 if (user.encryptedPassword != encryptedpsw) 
                 { 
                     rResponse = "Incorrect username or password";
@@ -304,6 +310,8 @@ namespace TECSite.Controllers
             ViewData.Add("response", rResponse);
             return View();
         }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Logout(string? confirm = null)
         {
             user = null;
@@ -323,6 +331,8 @@ namespace TECSite.Controllers
 
             else { return View(); }
         }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Register(
             string? uname = null,
             string? disuname = null,
@@ -443,6 +453,7 @@ namespace TECSite.Controllers
             }
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult ConfirmEmail(int? code = null)
         {
             user = null;

@@ -21,6 +21,7 @@ namespace TECSite.Controllers
             _logger = logger;
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Event(string? id)
         {
             events = null;
@@ -35,8 +36,9 @@ namespace TECSite.Controllers
                     // redirect to current event
                     return Redirect($"{Program.domain}/Events/Current");
 
+                case "":
                 case null:
-                    Console.WriteLine("Event List page");
+                    Console.WriteLine("\nEvent List page\n");
                     events = GetEvents();
 
                     if (domain == "api")
@@ -78,6 +80,7 @@ namespace TECSite.Controllers
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Current(string? id)
         {
             events = null;
@@ -197,7 +200,9 @@ namespace TECSite.Controllers
             return events;
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Hosting(string? id) { return View(); }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Joining(string? id) { return View(); }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

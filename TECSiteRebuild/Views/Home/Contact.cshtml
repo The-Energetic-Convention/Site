@@ -5,15 +5,19 @@
     <h1 class="display-4">Where to contact us:</h1>
     <div class="container">
         <p>Using this form:</p>
-        <form asp-controller="Home" asp-action="Contact" method="post">
+        <p>@ViewData["StatusText"]</p>
+        <form asp-controller="Home" asp-action="Contact" method="post" enctype="multipart/form-data">
 
             <label for="email">Email</label>
             <input type="text" id="email" name="email" placeholder="Email" required>
 
             <label for="message">Message</label>
             <textarea id="message" name="usermessage" placeholder="Send us a message! Do Not use this form for advertising!" style="height:200px" required></textarea>
+            <textarea id="messagearea" name="usermessagearea" placeholder="Send us another message!" style="height:200px;position:absolute;left:-9999vw;"></textarea>
+            <label for="imageupload" style="display: block">Image Upload</label>
+            <input id="imageupload" name="imageupload" type="file" style="display:block; margin:auto"/>
 
-            <input type="submit" value="Send!">
+            <input type="submit" value="Send!" style="display:block; margin:auto">
 
         </form>
     </div>

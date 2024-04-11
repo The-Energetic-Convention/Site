@@ -5,6 +5,10 @@ using TECSite.EmailService;
 using Microsoft.AspNetCore.Http.Extensions;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Diagnostics;
+using Polly;
+using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.Net.Http.Headers;
 
 namespace TECSite.Controllers
 {
@@ -15,12 +19,13 @@ namespace TECSite.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            ViewData.Add("StatusText", null);
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index()
         {
-            Console.WriteLine("Home Page");
-
+            Console.WriteLine("Home Page"); 
             string domain = Request.Host.Host.Split('.')[0];
             if (domain == "api")
             {
@@ -30,6 +35,7 @@ namespace TECSite.Controllers
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Privacy()
         {
             Console.WriteLine("Privacy Page");
@@ -43,6 +49,7 @@ namespace TECSite.Controllers
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Terms()
         {
             Console.WriteLine("Terms and Conditions Page");
@@ -56,11 +63,20 @@ namespace TECSite.Controllers
             return View();
         }
 
-        public IActionResult Contact(string? email = null, string? usermessage = null)
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Contact(string? email = null, string? usermessage = null, string? usermessagearea = null, IFormFile imageupload = null)
         {
             if (email == null && usermessage == null) { Console.WriteLine("Contact Us Page"); }
-            else if (email == null) { Console.WriteLine("Missing email for contact!"); }
-            else if (usermessage == null) { Console.WriteLine("Missing message for contact!"); }
+            else if (email == null) { ViewData["StatusText"] = "No Email Entered!"; Console.WriteLine("Missing email for contact!"); }
+            else if (usermessage == null) { ViewData["StatusText"] = "No Message Entered!"; Console.WriteLine("Missing message for contact!"); }
+            else if (usermessagearea != null) { ViewData["StatusText"] = "Bot Lol"; Console.WriteLine("Bot Detected!!!"); }
+            else if (imageupload != null && !imageupload.FileName.ToLower().EndsWith(".jpg") &&
+                                            !imageupload.FileName.ToLower().EndsWith(".png") &&
+                                            !imageupload.FileName.ToLower().EndsWith(".zip") &&
+                                            !imageupload.FileName.ToLower().EndsWith(".jpeg"))
+            {
+                ViewData["StatusText"] = "Incorrect file type submitted! File must be jpg, png, or zip of multiple images"; Console.WriteLine($"\n\nIncorrect File Type submit.\nBEBE{imageupload.FileName}HEA\n\n");
+            }
             else
             {
                 Console.WriteLine("getting sender");
@@ -70,7 +86,7 @@ namespace TECSite.Controllers
                 Console.WriteLine("setting to dict");
                 Dictionary<string, string> nameadressdict = new() { { "TheEnergeticConvention", "staff@thenergeticon.com" } };
                 Console.WriteLine("Making Message");
-                var message = new Message("WebsiteUser", email, nameadressdict, "Message from website", $"From: {email}\n{usermessage}", null);
+                var message = new Message("WebsiteUser", email, nameadressdict, $"Message from website {email}", $"From: {email}\n{usermessage}", imageupload);
                 Console.WriteLine("Sending Message");
                 emailSender.SendEmail(message);
                 return Redirect($"{Program.domain}/Home");
@@ -78,18 +94,21 @@ namespace TECSite.Controllers
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult DealersDen()
         {
             Console.WriteLine("Dealers Den Page");
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult FAQ()
         {
             Console.WriteLine("FAQ Page");
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult PageNotFound()
         {
             Console.WriteLine("Page Not Found!");
@@ -106,7 +125,7 @@ namespace TECSite.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { exception = HttpContext.Features.Get<IExceptionHandlerPathFeature>().Error,  RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
     }

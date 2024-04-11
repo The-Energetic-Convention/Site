@@ -3,16 +3,6 @@ self.addEventListener('install', function (e) {
     e.waitUntil(
         caches.open('TEC_CACHE').then(function (cache) {
             return cache.addAll([
-                '/',
-                '/Home',
-                '/Home/Contact',
-                '/Home/DealersDen',
-                '/Home/PageNotFound',
-                '/Home/Privacy',
-                '/Home/Terms',
-                '/Home/Index',
-                '/Home/FAQ',
-
                 '/manifest.json',
                 '/favicon.ico',
                 '/ads.txt',
@@ -32,11 +22,6 @@ self.addEventListener('install', function (e) {
                 '/Terms/2.png',
                 '/tec-logo.png',
                 '/css/site.css',
-
-                '/Events',
-                '/Events/Hosting',
-                '/Events/Joining',
-                '/Events/Current'
             ]);
         })
     );

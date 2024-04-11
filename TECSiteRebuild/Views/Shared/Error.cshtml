@@ -1,10 +1,15 @@
 ﻿@model ErrorViewModel
+@using Newtonsoft.Json;
 @{
     ViewData["Title"] = "Error";
 }
 
 <h1 class="text-danger">oops!</h1>
 <h2 class="text-danger">We made a wittwe fucky wucky. Something happened uwu. Dont wowwy, uwu cawn twy again, ow ewse we awe wowking own the pwobwem uwu. Pwease fowgive us daddy uwu</h2>
+<h2>Please take a screenshot of this error, so we can look into it and get it fixed!</h2>
+<h2>The head <a href="@Program.domain/Home/Contact">here</a> to submit the error to us, or message Unifox on discord at theunifox.</h2>
+<p class="text-danger">@Model.exception.Message</p>
+<p class="text-danger">@JsonConvert.SerializeObject(Model.exception, Formatting.Indented)</p>
 
 @if (Model.ShowRequestId)
 {

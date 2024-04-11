@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.IO.Pipes;
 using System.Net;
 using System.Text;
@@ -120,12 +121,19 @@ namespace TECSite
 
                 return (ss, pipeClient);
             }
-            catch (Exception e) { Console.WriteLine(e.Message); return (null,null); }
+            catch (Exception e) { Console.WriteLine($"\n{JsonConvert.SerializeObject(e)}\n"); return (null,null); }
         }
 
         public static void CheckResponse(StreamString ss)
         {
             if (ss.ReadString() != "READY") { throw new Exception("Server Error"); }
+        }
+
+        public static HttpContext AddNoCacheHeaders(HttpContext context)
+        {
+            context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
+            context.Response.Headers.Add("Expires", "-1");
+            return context;
         }
     }
 

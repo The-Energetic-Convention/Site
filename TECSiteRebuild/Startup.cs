@@ -11,6 +11,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net;
+using TECSite.Controllers;
+using System.Runtime.CompilerServices;
 
 namespace TECsite
 {
@@ -52,7 +56,16 @@ namespace TECsite
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use((context, next) =>
+            {
+                context.Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+                context.Response.Headers.Add("Expires", "0");
+                context.Response.Headers.Add("Pragma", "no-cache");
+                return next.Invoke();
+            });
+
             app.UseExceptionHandler("/Home/Error");
+
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
 
