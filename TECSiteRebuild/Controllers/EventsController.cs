@@ -102,6 +102,7 @@ namespace TECSite.Controllers
                     currentEventsList.Add(checkEvent);
                     foundEvents++;
                     inEvent = true;
+                    lastEvent = checkEvent;
                     i++;
                     continue;
                 }   // if this isn't the first event to check, we aren't at this event, but we are past the last event
@@ -109,17 +110,20 @@ namespace TECSite.Controllers
                 {
                     statusString = "DAY_OVER";
                     inEvent = false;
+                    lastEvent = checkEvent;
                     break;
                 }  // if this is the first event to check, and we aren't at it yet
                 else if (lastEvent == null && Program.mainNow < checkEvent.EventDate)
                 {
                     statusString = "BEFORE_CON";
                     inEvent = false;
+                    lastEvent = checkEvent;
                     break;
                 }
                 else
                 {
                     i++;
+                    lastEvent = checkEvent;
                     continue;
                 }
             }

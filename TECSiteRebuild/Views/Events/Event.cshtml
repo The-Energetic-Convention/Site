@@ -137,7 +137,7 @@
                         var json = readStream.ReadToEnd();
 
                         VRChat.API.Model.Instance instance = Newtonsoft.Json.JsonConvert.DeserializeObject<VRChat.API.Model.Instance>(json);
-
+                        instCount = instance.NUsers;
                     }
                     catch (HttpRequestException e)
                     {
