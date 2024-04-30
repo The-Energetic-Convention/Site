@@ -26,60 +26,73 @@
             }
         </style>
 
-        <div style="display:flex">
-            <a style="margin: 0 auto" href="~/Schedule/Schedule.png" download="TEC_Schedule">Download</a>
-        </div>
-        <div style="opacity:1; max-height:90vh; overflow:auto; display: flex; flex-direction: row; flex-wrap:wrap;">
-            <h3 style="margin-right:8vw">Friday, April 12:</h3>
-            <div style="margin: 0 auto; width:77.25%; position:relative">
-                <a href="@Program.domain/Events/Event/0"> <button style="opacity:0; position:absolute; left:11.7%; top:7.5%; width:14.8%; height:47%"></button></a>
-                <a href="@Program.domain/Events/Event/1"> <button style="opacity:0; position:absolute; left:26.4%; top:7.5%; width:14.8%; height:24%"></button></a>
-                <a href="@Program.domain/Events/Event/2"> <button style="opacity:0; position:absolute; left:41%;   top:7.5%; width:14.8%; height:24%"></button></a>
-                <a href="@Program.domain/Events/Event/3"> <button style="opacity:0; position:absolute; left:55.7%; top:54%;  width:14.8%; height:24%"></button></a>
-                <a href="@Program.domain/Events/Event/4"> <button style="opacity:0; position:absolute; left:70.4%; top:7.5%; width:14.8%; height:24%"></button></a>
-                <a href="@Program.domain/Events/Event/5"> <button style="opacity:0; position:absolute; left:85.2%; top:7.5%; width:14.8%; height:24%"></button></a>
-                <img src="~/Schedule/Day1.png" width="100%" style="margin: 0 auto">
+        <div style="opacity:1; max-height:99vh; overflow:auto; display: flex; flex-direction: row; flex-wrap:wrap;">
+            <h3 style="margin-right:8vw">@ViewData["day1Date"]</h3>
+            <div style="margin: 0 auto; position:relative">
+                @Html.Raw(ViewData["day1Table"])
             </div>
-            <div style="margin: 0 auto; width:22.75%">
-                <img src="~/Schedule/Legend.png" width="100%" style="margin: 0 auto">
+            <div style="margin: 0 auto;">
+                <table class="tg" style="undefined;table-layout: fixed; width: 200px">
+                    <colgroup>
+                        <col style="width: 70px">
+                        <col style="width: 70px">
+                        <col style="width: 70px">
+                        <col style="width: 70px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="tableLocation">LEGEND:</th>
+                            <th class="Game"></th>
+                            <th class="sidebarEven Everyone" style="text-align: center;" colspan="2">GAME</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tableLocation" rowspan="6"></td>
+                            <td class="Panel"></td>
+                            <td class="sidebarOdd Everyone" style="text-align: center;" colspan="2">PANEL</td>
+                        </tr>
+                        <tr>
+                            <td class="Special"></td>
+                            <td class="sidebarEven Everyone" style="text-align: center;" colspan="2">SPECIAL</td>
+                        </tr>
+                        <tr>
+                            <td class="GuestPanel"></td>
+                            <td class="sidebarOdd Everyone" style="text-align: center;" colspan="2">GUEST PANEL</td>
+                        </tr>
+                        <tr>
+                            <td class="GuestGame"></td>
+                            <td class="sidebarEven Everyone" style="text-align: center;" colspan="2">GUEST GAME</td>
+                        </tr>
+                        <tr>
+                            <td class="Video"></td>
+                            <td class="sidebarOdd Everyone" style="text-align: center;" colspan="2">VIDEO</td>
+                        </tr>
+                        <tr>
+                            <td class="Shop"></td>
+                            <td class="sidebarEven Everyone" style="text-align: center;" colspan="2">SHOP</td>
+                        </tr>
+                        <tr>
+                            <td class="rowEven Everyone" style="font-size: 11px">Text Colours</td>
+                            <td class="rowEven Everyone" style="font-size: 11px">Everyone Event</td>
+                            <td class="rowEven PG13" style="font-size: 11px">PG13 Event</td>
+                            <td class="rowEven Adult" style="font-size: 11px">18+ Event</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <h3 style="margin-right:8vw; margin-top:15px">Saturday, April 13:</h3>
-            <div style="margin: 0 auto; width:100%; position:relative">
-                <a href="@Program.domain/Events/Event/6 "> <button style="opacity:0; position:absolute; left:6.3%;  top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/7 "> <button style="opacity:0; position:absolute; left:14.1%; top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/8 "> <button style="opacity:0; position:absolute; left:21.9%; top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/9 "> <button style="opacity:0; position:absolute; left:29.6%; top:54%; width:4%;   height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/10"> <button style="opacity:0; position:absolute; left:33.5%; top:31%; width:4%;   height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/11"> <button style="opacity:0; position:absolute; left:37.4%; top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/12"> <button style="opacity:0; position:absolute; left:45.2%; top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/13"> <button style="opacity:0; position:absolute; left:53.1%; top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/14"> <button style="opacity:0; position:absolute; left:60.8%; top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/15"> <button style="opacity:0; position:absolute; left:68.6%; top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/16"> <button style="opacity:0; position:absolute; left:76.4%;top:31.3%;width:7.84%;height:23%"></button>
-                                                           <button style="opacity:0; position:absolute; left:76.4%;top:76.4%;width:7.84%;height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/17"> <button style="opacity:0; position:absolute; left:84.2%; top:9%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/18"> <button style="opacity:0; position:absolute; left:92%;top:31.3%;width:7.84%;height:45.4%"></button></a>
-                <img src="~/Schedule/Day2.png" width="100%" style="margin: 0 auto">
+            <h3 style="margin-right:8vw; margin-top:15px">@ViewData["day2Date"]</h3>
+            <div style="margin: 0 auto; position:relative">
+                @Html.Raw(ViewData["day2Table"])
             </div>
-            <h3 style="margin-right:8vw; margin-top:15px">Sunday, April 14:</h3>
-            <div style="margin: 0 auto; width:100%; position:relative">
-                <a href="@Program.domain/Events/Event/19"> <button style="opacity:0; position:absolute; left:6.3%;  top:8%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/20"> <button style="opacity:0; position:absolute; left:14.1%; top:8%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/21"> <button style="opacity:0; position:absolute; left:21.8%;top:76.4%;width:7.84%;height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/22"> <button style="opacity:0; position:absolute; left:29.6%;top:76.4%;width:7.84%;height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/23"> <button style="opacity:0; position:absolute; left:37.4%; top:8%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/24"> <button style="opacity:0; position:absolute; left:45.2%; top:8%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/25"> <button style="opacity:0; position:absolute; left:53.1%; top:8%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/26"> <button style="opacity:0; position:absolute; left:60.8%; top:8%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/27"> <button style="opacity:0; position:absolute; left:68.6%; top:8%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/28"> <button style="opacity:0; position:absolute; left:76.4%;top:53.7%;width:7.84%;height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/29"> <button style="opacity:0; position:absolute; left:84.2%; top:8%; width:7.84%; height:23%"></button></a>
-                <a href="@Program.domain/Events/Event/30"> <button style="opacity:0; position:absolute; left:92%;   top:8%; width:7.84%; height:46%"></button></a>
-                <img src="~/Schedule/Day3.png" width="100%" style="margin: 0 auto">
+            <h3 style="margin-right:8vw; margin-top:15px">@ViewData["day3Date"]</h3>
+            <div style="margin: 0 auto; position:relative">
+                @Html.Raw(ViewData["day3Table"])
             </div>
         </div>
 
-        /* foreach (TECDataClasses.EventInfo toAdd in events)
+        /* old attempt at creating the schedule dynamically lol. keeping here for records
+        foreach (TECDataClasses.EventInfo toAdd in events)
         {
             <p id="@toAdd.EventNumber">@toAdd.EventDate.ToString("dddd, MMM dd: h:mm tt ") <a href="@Program.domain/Events/Event/@toAdd.EventNumber"><button class="link-button-class" id="link-button" onclick="ButtonWait()">@toAdd.EventName</button></a></p>
         } */
@@ -121,7 +134,7 @@
                     var instID = $"TEC{i}";
                     string inst = $"https://vrchat.com/home/launch?worldId={worldID}&instanceId={instID}~group(grp_68436afe-3d3a-4455-b88c-c8fa6924e4e0)~groupAccessType(members)~region(us)";
                     int instCount = 0;
-                    System.Net.HttpWebRequest request = System.Net.WebRequest.CreateHttp($"https://api.vrchat.cloud/api/1/instances/wrld_b155ff30-0bbf-486c-afc5-e7a05145387b:TEC1");
+                    System.Net.HttpWebRequest request = System.Net.WebRequest.CreateHttp($"https://api.vrchat.cloud/api/1/instances/{worldID}:TEC1");
                     request.Method = "GET";
                     request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
                     request.CookieContainer = new();

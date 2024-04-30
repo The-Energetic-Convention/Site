@@ -9,7 +9,7 @@ namespace TECSite
     public class Program
     {
         #if DEBUG
-        public static string domain = "https://localhost:443";
+        public static string domain = "https://localhost:727";
 #else
         public static string domain = "https://thenergeticon.com";
 #endif
@@ -44,7 +44,7 @@ namespace TECSite
                 {
                     webHostBuilder.UseKestrel()
 #if DEBUG
-                    .UseUrls("https://localhost:420", "http://localhost:6969") //set the addresses to listen on from provided IP
+                    .UseUrls("https://localhost:727", "http://localhost:929") //set the addresses to listen on from provided IP
 #else
                     .UseUrls("https://" + myIP + ":420", "http://" + myIP + ":6969") //set the addresses to listen on from provided IP
 #endif
@@ -177,6 +177,139 @@ namespace TECSite
             ioStream.Flush();
 
             return outBuffer.Length + 2;
+        }
+    }
+
+    public static class Html
+    {
+        public class Table : HtmlBase, IDisposable
+        {
+            public Table(StringBuilder sb, string classAttributes = "", string id = "", string style = "") : base(sb)
+            {
+                Append("<table");
+                AddOptionalAttributes(classAttributes, id, "", "", style);
+            }
+
+            public void StartHead(string classAttributes = "", string id = "")
+            {
+                Append("<thead");
+                AddOptionalAttributes(classAttributes, id);
+            }
+
+            public void EndHead()
+            {
+                Append("</thead>");
+            }
+
+            public void StartFoot(string classAttributes = "", string id = "")
+            {
+                Append("<tfoot");
+                AddOptionalAttributes(classAttributes, id);
+            }
+
+            public void EndFoot()
+            {
+                Append("</tfoot>");
+            }
+
+            public void StartBody(string classAttributes = "", string id = "")
+            {
+                Append("<tbody");
+                AddOptionalAttributes(classAttributes, id);
+            }
+
+            public void EndBody()
+            {
+                Append("</tbody>");
+            }
+
+            public void AddColgroup(int cols, bool smaller)
+            {
+                Append("<colgroup>");
+                Append($"<col style=\"width: {(smaller ? 100 : 115)}px\">");
+                for (int i = 0; i < cols; i++)
+                { Append($"<col style=\"width: {(smaller ? 60 : 70)}px\">"); }
+                Append("</colgroup>");
+            }
+
+            public void Dispose()
+            {
+                Append("</table>");
+            }
+
+            public Row AddRow(string classAttributes = "", string id = "", string style = "")
+            {
+                return new Row(GetBuilder(), classAttributes, id, style);
+            }
+        }
+
+        public class Row : HtmlBase, IDisposable
+        {
+
+            public Row(StringBuilder sb, string classAttributes = "", string id = "", string style = "") : base(sb)
+            {
+                Append("<tr");
+                AddOptionalAttributes(classAttributes, id, "", "", style);
+            }
+            public void Dispose()
+            {
+                Append("</tr>");
+            }
+            public void AddCell(string innerText, string classAttributes = "", string id = "", string colSpan = "", string rowSpan = "", string style = "", string eventID = "")
+            {
+                Append("<td");
+                AddOptionalAttributes(classAttributes, id, colSpan, rowSpan, style); 
+                if (!string.IsNullOrEmpty(eventID))
+                    { Append($"<a class=\"{classAttributes}\" href=\"{Program.domain}/Events/Event/{eventID}\"/>"); }
+                Append(innerText);
+                Append("</td>");
+            }
+        }
+
+        public abstract class HtmlBase
+        {
+            private StringBuilder _sb;
+
+            protected HtmlBase(StringBuilder sb)
+            {
+                _sb = sb;
+            }
+
+            public StringBuilder GetBuilder()
+            {
+                return _sb;
+            }
+
+            protected void Append(string toAppend)
+            {
+                _sb.Append(toAppend);
+            }
+
+            protected void AddOptionalAttributes(string className = "", string id = "", string colSpan = "", string rowSpan = "", string style = "")
+            {
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    _sb.Append($" id=\"{id}\"");
+                }
+                if (!string.IsNullOrEmpty(className))
+                {
+                    _sb.Append($" class=\"{className}\"");
+                }
+                if (!string.IsNullOrEmpty(colSpan))
+                {
+                    _sb.Append($" colspan=\"{colSpan}\"");
+                }
+                if (!string.IsNullOrEmpty(rowSpan))
+                {
+                    _sb.Append($" rowspan=\"{rowSpan}\"");
+                }
+                if (!string.IsNullOrEmpty(style))
+                {
+                    _sb.Append($" style=\"{style}\"");
+                }
+                _sb.Append(">");
+            }
         }
     }
 }

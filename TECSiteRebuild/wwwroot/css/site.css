@@ -69,6 +69,153 @@ footer {
     opacity: 0.1;
 }
 
+.tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    .tg .td {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        text-align: center;
+        vertical-align: middle;
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-size: 8px;
+        font-weight: normal;
+        overflow: hidden;
+        padding: 5px 5px;
+        word-break: normal;
+    }
+
+    .tg .tableLocation {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        background-color: #434343;
+        color: #ffffff;
+        font-size: 12px;
+        text-align: right;
+    }
+
+    .tg .tableHeader {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        background-color: #434343;
+        color: #ffffff;
+        font-size: 12px;
+    }
+
+    .tg .sidebarOdd {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        background-color: #dab50b;
+        color: #000000;
+        text-align: right;
+        font-size: 16px;
+    }
+
+    .tg .sidebarEven {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        background-color: #f9d779;
+        color: #000000;
+        text-align: right;
+        font-size: 16px;
+    }
+
+    .tg .rowOdd {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #656565;
+        font-size: 12px;
+    }
+
+    .tg .rowEven {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #9b9b9b;
+        font-size: 12px;
+    }
+
+    .tg .Game {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #b6d7a8;
+        line-height: 1.6;
+    }
+
+    .tg .Panel {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #9fc5e8;
+        line-height: 1.6;
+    }
+
+    .tg .Special {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #ffe599;
+        line-height: 1.6;
+    }
+
+    .tg .GuestPanel {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #f9cb9c;
+        line-height: 1.6;
+    }
+
+    .tg .GuestGame {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #d5a6bd;
+        line-height: 1.6;
+    }
+
+    .tg .Video {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #b4a7d6;
+        line-height: 1.6;
+    }
+
+    .tg .Shop {
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        padding: 5px 2px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #ea9999;
+        line-height: 1.6;
+    }
+
+.Everyone {
+    color: #000000;
+}
+
+.PG13 {
+    color: #b45f06;
+}
+
+.Adult {
+    color: #980000;
+}
+
 .link-button-class, input[type=submit] {
     background: #252159;
     border: 1vmin Solid #252159;
