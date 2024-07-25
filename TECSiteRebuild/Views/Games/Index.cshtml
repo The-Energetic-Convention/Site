@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "TEC Game Servers";
+}
+
+<div class="text-center">
+    <h1 class="display-4">TEC has some custom game servers to play on! Come play!</h1>
+    <p>These general rules apply to all game servers:</p>
+    <p>#1 Respect Staff</p>
+    <p>#2 Respect each other</p>
+    <p>#3 no using cheats, other than what we have allowed for a specific game or situation, if any</p>
+    <p></p>
+    <p>Now you can choose a game below for info!</p>
+    
+    <div id="game-links">
+        <a href="@Program.domain/Games/GTA"><button class="link-button-class" id="link-button" onclick="ButtonWait()">GTA <img src="~/gta.png" width="50"></button></a>
+        <a href="@Program.domain/Games/Rust"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Rust <img src="~/rust.png" width="50"></button></a>
+        <a href="@Program.domain/Games/Minecraft"><button class="link-button-class" id="link-button" onclick="ButtonWait()">Minecraft <img src="~/minecraft.png" width="50"></button></a>
+        <a href="@Program.domain/Games/BeamMP"><button class="link-button-class" id="link-button" onclick="ButtonWait()">BeamMP <img src="~/beamng.png" width="50"></button></a>
+    </div>
+</div>
