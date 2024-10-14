@@ -1,8 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Page Not Found";
 }
+@inject IHttpContextAccessor HttpContextAccessor
 
 <div class="text-center">
     <h1 class="display-4">Oops!</h1>
-    <p>Sorry, but we cound not find the page you are looking for!</p>
+    @if (!HttpContextAccessor.HttpContext.Request.Cookies.ContainsKey("loggedIn"))
+    {
+        <p>Sorry, but we cound not find the page you are looking for!</p>
+    }
+    else
+    {
+        <p>Sorry @ViewData["uname"], but we cound not find the page you are looking for!</p>
+    }
+    
 </div>

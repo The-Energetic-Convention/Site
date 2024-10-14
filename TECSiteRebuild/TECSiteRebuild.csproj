@@ -8,19 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="4.3.0" />
+    <PackageReference Include="MailKit" Version="4.7.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="MimeKit" Version="4.3.0" />
+    <PackageReference Include="MimeKit" Version="4.7.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="VRChat.API" Version="1.15.0" />
+    <PackageReference Include="VRChat.API" Version="1.18.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="TECDataClasses">
-      <HintPath>..\..\DataClasses\TECDataClasses\bin\Release\net6.0\TECDataClasses.dll</HintPath>
+    <Reference Include="TECDataClasses_Framework">
+      <HintPath>..\..\DataClasses-Framework\TECDataClasses_Framework\bin\Release\TECDataClasses_Framework.dll</HintPath>
     </Reference>
     <Reference Include="TECEncryption">
-      <HintPath>..\..\TECEncryption\TECEncryption\bin\Debug\TECEncryption.dll</HintPath>
+      <HintPath>..\..\EncryptionLibrary\TECEncryption.dll</HintPath>
     </Reference>
   </ItemGroup>
 

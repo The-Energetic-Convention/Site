@@ -1,9 +1,17 @@
 ﻿@{
     ViewData["Title"] = "The Energetic Convention";
 }
+@inject IHttpContextAccessor HttpContextAccessor
 
 <div class="text-center">
-    <h1 class="display-4">Welcome!</h1>
+    @if (!HttpContextAccessor.HttpContext.Request.Cookies.ContainsKey("loggedIn"))
+    {
+        <h1 class="display-4">Welcome!</h1>
+    }
+    else
+    {
+        <h1 class="display-4">Welcome back @ViewData["uname"]!</h1>
+    }
     <h4 id="timeleft"></h4>
     <h3>Current local con time: @Program.mainNow.ToString("ddd, MMM d, yyyy h:mm tt")</h3>
     <p>Use the links above to check out our merch store, or below to join the current event, see the event schedule, and more! </p>

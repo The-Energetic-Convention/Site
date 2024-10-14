@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Polly;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Net.Http.Headers;
+using TECEncryption;
 
 namespace TECSite.Controllers
 {
@@ -30,6 +31,11 @@ namespace TECSite.Controllers
             if (domain == "api")
             {
                 return RedirectPermanent($"{Program.domain}/Api");
+            }
+
+            if (Request.Cookies.ContainsKey("loggedIn"))
+            {
+                ViewData.Add("uname", Encryption.Decrypt(Request.Cookies["loggedIn"]!, JsonConvert.DeserializeObject<byte[]>(Program.authKey)));
             }
 
             return View();
@@ -117,6 +123,11 @@ namespace TECSite.Controllers
             if (domain == "api")
             {
                 return new NotFoundResult();
+            }
+
+            if (Request.Cookies.ContainsKey("loggedIn"))
+            {
+                ViewData.Add("uname", Encryption.Decrypt(Request.Cookies["loggedIn"]!, JsonConvert.DeserializeObject<byte[]>(Program.authKey)));
             }
 
             return View();
